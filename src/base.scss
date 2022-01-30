@@ -1,0 +1,56 @@
+$color-white: #ffffff;
+$color-whiteish: #fafafa;
+$color-purple: #b333f7;
+$color-red: #bf0202;
+$color-blue: #170fe6;
+$color-blue-light: #eaecf8;
+
+$color-text: #080c2b;
+$color-shadow: #00347026;
+
+@mixin shadow {
+    box-shadow: 0px 5px 15px 0px $color-shadow;
+}
+
+%flex {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+}
+
+@mixin card($border-radius: 0 0 6px 6px, $background: $color-white) {
+    @include shadow;
+    background: $background;
+    border-radius: $border-radius;
+}
+
+@mixin remove-scrollbars {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@font-face {
+    font-family: "CorsaGrotesk";
+    src: url("assets/fonts/CorsaGrotesk-Thin.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "CorsaGrotesk";
+    src: url("assets/fonts/CorsaGrotesk-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "CorsaGrotesk";
+    src: url("assets/fonts/CorsaGrotesk-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}

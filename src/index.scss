@@ -1,0 +1,101 @@
+@import "base.scss";
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+li,
+div,
+span,
+a,
+input {
+  font-family: "CorsaGrotesk", sans-serif;
+  color: $color-text;
+  font-weight: 400;
+}
+
+.row {
+  @extend %flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.col {
+  @extend %flex;
+  flex-direction: column;
+}
+
+body .icon {
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+  &.icon-arrow-down {
+    background-image: url("./assets/icons/arrow-down.svg");
+  }
+  &.icon-arrow-right {
+    background-image: url("./assets/icons/arrow-right.svg");
+  }
+  &.icon-back {
+    background-image: url("./assets/icons/back.svg");
+  }
+  &.icon-combine {
+    background-image: url("./assets/icons/combine.svg");
+  }
+  &.icon-end {
+    background-image: url("./assets/icons/end.svg");
+  }
+  &.icon-forward {
+    background-image: url("./assets/icons/forward.svg");
+  }
+  &.icon-pause {
+    background-image: url("./assets/icons/pause.svg");
+  }
+  &.icon-plus {
+    background-image: url("./assets/icons/plus.svg");
+  }
+  &.icon-settings {
+    background-image: url("./assets/icons/settings.svg");
+  }
+  &.icon-split {
+    background-image: url("./assets/icons/split.svg");
+  }
+  &.icon-start {
+    background-image: url("./assets/icons/start.svg");
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    &:active {
+      transform: scale(1);
+    }
+  }
+}
