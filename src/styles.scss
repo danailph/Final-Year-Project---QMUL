@@ -1,0 +1,11 @@
+.algorithmic-visualiser-container {
+    position: relative;
+    height: 100%;
+    .algorithmic-visualiser-content {
+        height: calc(100% - 54px);
+        padding: 2vh 1vw;
+        .spacer{
+            width: 3vw;
+        }
+    }
+}

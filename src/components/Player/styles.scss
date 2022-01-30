@@ -1,0 +1,31 @@
+@import "base";
+
+.player-container {
+    @include card;
+    .player-speed {
+        padding: 5px 10px;
+        width: 100%;
+        > div.row {
+            justify-content: space-between;
+            p {
+                margin: 5px 0;
+                font-weight: 700;
+            }
+        }
+    }
+    .player-controls {
+        @include card($background: $color-blue-light);
+        padding: 5px 10px;
+        > div.icon {
+            flex: 1;
+            margin: 5px;
+            &.icon-pause {
+                background-color: $color-blue;
+                border-radius: 6px;
+                background-size: 70%;
+                height: 40px;
+                max-width: 40px;
+            }
+        }
+    }
+}
