@@ -19,7 +19,8 @@
         > div.icon {
             flex: 1;
             margin: 5px;
-            &.icon-pause {
+            &.icon-pause,
+            &.icon-play {
                 background-color: $color-blue;
                 border-radius: 6px;
                 background-size: 70%;

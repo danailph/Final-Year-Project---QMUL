@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import { toggleOverlay, resetState } from 'config/actions'
 import { reducer, initialState } from 'config/reducer'
-import { Header, Overlay, Visualiser } from 'components'
+import { Header, Overlay, SortignVisualiser } from 'components'
 import { useQuery } from 'hooks'
 import 'styles.scss'
 
@@ -20,11 +20,11 @@ const App = () => {
     return <div className="algorithmic-visualiser-container">
         <Header toggleOverlay={() => dispatch(toggleOverlay())} />
         <div className="algorithmic-visualiser-content row">
-            <Visualiser  {...props} />
+            <SortignVisualiser  {...props} />
             {isVisualiserSplit &&
                 <>
                     <div className="spacer" />
-                    <Visualiser {...props} />
+                    <SortignVisualiser {...props} />
                 </>
             }
         </div>
