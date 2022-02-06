@@ -1,12 +1,13 @@
 import { useEffect, useReducer } from 'react'
 import { toggleOverlay, resetState } from 'config/actions'
 import { reducer, initialState } from 'config/reducer'
-import { Header, Overlay, SortignVisualiser } from 'components'
+import { Header, Overlay, Visulisers } from 'components'
 import { useQuery } from 'hooks'
 import 'styles.scss'
 
 const App = () => {
-    const { option } = useQuery()
+    const { tab, option } = useQuery()
+    const Visualiser = Visulisers[tab]
 
     const [state, dispatch] = useReducer(reducer, initialState)
     const { isVisualiserSplit } = state || {}
@@ -20,11 +21,12 @@ const App = () => {
     return <div className="algorithmic-visualiser-container">
         <Header toggleOverlay={() => dispatch(toggleOverlay())} />
         <div className="algorithmic-visualiser-content row">
-            <SortignVisualiser  {...props} />
+
+            <Visualiser  {...props} />
             {isVisualiserSplit &&
                 <>
                     <div className="spacer" />
-                    <SortignVisualiser {...props} />
+                    <Visualiser {...props} />
                 </>
             }
         </div>

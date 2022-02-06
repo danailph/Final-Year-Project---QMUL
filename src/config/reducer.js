@@ -24,24 +24,51 @@ export const reducer = (state, { type, payload }) => {
 export const sortingVisualisationReducer = (state, { type, payload }) => {
     console.log(type, payload);
     switch (type) {
-        case "sortgingGoToBeggining":
+        case "sortingGoToBeggining":
             return { ...state, isPaused: true, currentStep: 0, targetStep: 0 }
-        case "sortgingGoToEnd":
+        case "sortingGoToEnd":
             return { ...state, isPaused: true, currentStep: state.animations.length, targetStep: state.animations.length }
 
-        case "sortgingGoBack":
+        case "sortingGoBack":
             return { ...state, isPaused: true, targetStep: Math.max(0, state.currentStep - 1) }
-        case "sortgingGoForward":
+        case "sortingGoForward":
             return { ...state, isPaused: true, targetStep: Math.min(state.animations.length, state.currentStep + 1) }
 
-        case "sortgingPlay":
+        case "sortingPlay":
             return { ...state, isPaused: false, targetStep: state.animations.length }
-        case "sortgingPause":
+        case "sortingPause":
             return { ...state, isPaused: true }
 
         case "sortingSpeed":
             return { ...state, isPaused: true, speed: payload }
         case 'sortingSetValue':
+            return { ...state, ...payload }
+        default:
+            return { ...state }
+    }
+}
+
+export const pathFindingVisualisationReducer = (state, { type, payload }) => {
+    console.log(type, payload);
+    switch (type) {
+        case "pathFindingGoToBeggining":
+            return { ...state, isPaused: true, currentStep: 0, targetStep: 0 }
+        case "pathFindingGoToEnd":
+            return { ...state, isPaused: true, currentStep: state.animations.length, targetStep: state.animations.length }
+
+        case "pathFindingGoBack":
+            return { ...state, isPaused: true, targetStep: Math.max(0, state.currentStep - 1) }
+        case "pathFindingGoForward":
+            return { ...state, isPaused: true, targetStep: Math.min(state.animations.length, state.currentStep + 1) }
+
+        case "pathFindingPlay":
+            return { ...state, isPaused: false, targetStep: state.animations.length }
+        case "pathFindingPause":
+            return { ...state, isPaused: true }
+
+        case "pathFindingSpeed":
+            return { ...state, isPaused: true, speed: payload }
+        case 'pathFindingSetValue':
             return { ...state, ...payload }
         default:
             return { ...state }

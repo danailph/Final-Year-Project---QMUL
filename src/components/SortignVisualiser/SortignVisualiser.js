@@ -13,7 +13,7 @@ const SortignVisualiser = ({ state, dispatch }) => {
     const { data, isVisualiserSplit } = state || {}
     const { tab, option } = useQuery()
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
-    const [visualisation, control] = useReducer(sortingVisualisationReducer, { isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[option](data) })
+    const [visualisation, control] = useReducer(sortingVisualisationReducer, { isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[isVisualiserSplit?.value || option](data) })
     const { original, sorted, animations, isPaused, currentStep, targetStep, speed } = visualisation || {}
 
     const isPausedRef = useRef(isPaused)

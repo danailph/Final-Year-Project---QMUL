@@ -11,22 +11,43 @@ export const resetState = () => ({
     type: 'resetState'
 })
 
-const sortgingGoToBeggining = (payload) => ({ type: 'sortgingGoToBeggining', payload })
-const sortgingGoBack = (payload) => ({ type: 'sortgingGoBack', payload })
-const sortgingPlay = (payload) => ({ type: 'sortgingPlay', payload })
-const sortgingPause = (payload) => ({ type: 'sortgingPause', payload })
-const sortgingGoForward = (payload) => ({ type: 'sortgingGoForward', payload })
-const sortgingGoToEnd = (payload) => ({ type: 'sortgingGoToEnd', payload })
+const sortingGoToBeggining = (payload) => ({ type: 'sortingGoToBeggining', payload })
+const sortingGoBack = (payload) => ({ type: 'sortingGoBack', payload })
+const sortingPlay = (payload) => ({ type: 'sortingPlay', payload })
+const sortingPause = (payload) => ({ type: 'sortingPause', payload })
+const sortingGoForward = (payload) => ({ type: 'sortingGoForward', payload })
+const sortingGoToEnd = (payload) => ({ type: 'sortingGoToEnd', payload })
 const sortingSpeed = (payload) => ({ type: 'sortingSpeed', payload })
 const sortingSetValue = (payload) => ({ type: 'sortingSetValue', payload })
 
 export const sorting = {
-    goToBeggining: sortgingGoToBeggining,
-    goBack: sortgingGoBack,
-    play: sortgingPlay,
-    pause: sortgingPause,
-    goForward: sortgingGoForward,
-    goToEnd: sortgingGoToEnd,
+    goToBeggining: sortingGoToBeggining,
+    goBack: sortingGoBack,
+    play: sortingPlay,
+    pause: sortingPause,
+    goForward: sortingGoForward,
+    goToEnd: sortingGoToEnd,
     speed: sortingSpeed,
     setValue: sortingSetValue
+}
+
+
+const pathFindingGoToBeggining = (payload) => ({ type: 'pathFindingGoToBeggining', payload })
+const pathFindingGoBack = (payload) => ({ type: 'pathFindingGoBack', payload })
+const pathFindingPlay = (payload) => ({ type: 'pathFindingPlay', payload })
+const pathFindingPause = (payload) => ({ type: 'pathFindingPause', payload })
+const pathFindingGoForward = (payload) => ({ type: 'pathFindingGoForward', payload })
+const pathFindingGoToEnd = (payload) => ({ type: 'pathFindingGoToEnd', payload })
+const pathFindingSpeed = (payload) => ({ type: 'pathFindingSpeed', payload })
+const pathFindingSetValue = (payload) => ({ type: 'pathFindingSetValue', payload })
+
+export const pathFinding = {
+    goToBeggining: pathFindingGoToBeggining,
+    goBack: pathFindingGoBack,
+    play: pathFindingPlay,
+    pause: pathFindingPause,
+    goForward: pathFindingGoForward,
+    goToEnd: pathFindingGoToEnd,
+    speed: pathFindingSpeed,
+    setValue: pathFindingSetValue
 }

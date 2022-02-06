@@ -1,0 +1,56 @@
+@import "base";
+.path-finding-visualiser-container {
+    position: relative;
+    @include card;
+    height: 100%;
+    width: 100%;
+    .path-finding-visualiser-inner-container {
+        flex: 1;
+        max-height: 100%;
+        width: 100%;
+        .path-finding-visualiser-header {
+            padding: 0 1vw;
+            justify-content: space-between;
+            h2 {
+                font-weight: 100;
+            }
+        }
+        .path-finding-visualiser-content {
+            height: calc(100% - 74px);
+            align-items: center;
+            justify-content: center;
+            padding: 2% 20%;
+            .grid-container {
+                display: grid;
+            }
+            .node-container {
+                aspect-ratio: 1;
+                max-height: 25px;
+                max-width: 25px;
+
+                border: 1px solid black;
+                &.wall {
+                    border: 1px solid red;
+                }
+                &.start {
+                    background-color: green;
+                }
+                &.target {
+                    background-color: red;
+                }
+                &.visited {
+                    background-color: turquoise;
+                }
+                &.path {
+                    background-color: gold;
+                }
+            }
+        }
+    }
+    .player-container {
+        align-self: center;
+        width: 60%;
+        max-width: 500px;
+        margin: 3vh 0;
+    }
+}
