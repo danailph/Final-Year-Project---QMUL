@@ -19,8 +19,6 @@ const SortignVisualiser = ({ state, dispatch }) => {
     const isPausedRef = useRef(isPaused)
     isPausedRef.current = isPaused
 
-    console.log({ currentStep, targetStep });
-
     const isFirstRender = useRef(true)
     useEffect(() => {
         if (isFirstRender.current) {
@@ -45,9 +43,8 @@ const SortignVisualiser = ({ state, dispatch }) => {
     const animate = async (toAnimate, isForward) => {
         for (let i = 0; i < toAnimate.length; i++) {
             try {
-                await prepareAnimation({ animation: toAnimate[i], isForward })
+                await prepareAnimation({ toAnimate, isForward, i })
             } catch (error) {
-                console.log(error);
                 if (toAnimate.length > 1) control(sorting.setValue({
                     currentStep: currentStep + i + 1,
                     targetStep: currentStep + i + 1,
@@ -57,9 +54,9 @@ const SortignVisualiser = ({ state, dispatch }) => {
         }
     }
 
-    const prepareAnimation = ({ animation, isForward }) => new Promise((res, rej) => {
-        console.log(animation);
+    const prepareAnimation = ({ toAnimate, isForward, i }) => new Promise((res, rej) => {
         if (isPausedRef.current) rej()
+        const animation = toAnimate[i]
         let { color, index, oldValue, newValue, swap } = animation
         if (!isForward) {
             color = color === 'red' ? "#170fe6" : color === "turquoise" ? "red" : color;
@@ -68,7 +65,10 @@ const SortignVisualiser = ({ state, dispatch }) => {
         updateBar({ index, color, swap, value: newValue })
         updateBar({ index: index + 1, color, swap, value: oldValue })
 
-        control(sorting.setValue({ currentStep: isForward ? Math.min(animations.length, currentStep + 1) : Math.max(0, currentStep - 1) }))
+        control(sorting.setValue({
+            currentStep: isForward ? Math.min(animations.length, currentStep + i + 1) : Math.max(0, currentStep + i - 1),
+            isPaused: (i === toAnimate.length - 1) || undefined
+        }))
         setTimeout(() => res(), (11 - (speed || 1)) * 50)
     })
 
@@ -105,9 +105,7 @@ const SortignVisualiser = ({ state, dispatch }) => {
                                     </p>
                                 ))}
                         </div>
-
                     </Popup>
-
                 }
             </div>
             <div className="row row-bars">

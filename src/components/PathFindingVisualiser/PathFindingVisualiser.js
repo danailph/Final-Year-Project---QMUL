@@ -7,7 +7,6 @@ import { useQuery } from 'hooks'
 import { getGrid } from 'config/utilties'
 import { algorithms } from "algorithms"
 import "./styles.scss"
-import { update } from "lodash"
 
 const PathFindingVisualiser = () => {
     const { tab, option } = useQuery()
@@ -18,9 +17,15 @@ const PathFindingVisualiser = () => {
 
     const [isMousePresed, setIsMousePressed] = useState(false)
     const handleWall = (i, j) => {
+        resetGrid()
         const newGrid = [...(original || [])]
         newGrid[i][j] = { ...newGrid[i][j], isWall: !newGrid[i][j].isWall }
-        control(pathFinding.setValue({ ...algorithms[option](newGrid, start, target,) }))
+        control(pathFinding.setValue({
+            ...algorithms[option](newGrid, start, target),
+            isPaused: true,
+            currentStep: 0,
+            targetStep: 0
+        }))
     }
 
     const isPausedRef = useRef(isPaused)
@@ -33,9 +38,9 @@ const PathFindingVisualiser = () => {
             isFirstRender.current = false
             return
         }
-        if ([0, currentStep].every(condition => condition === targetStep)) return
-        else if ([animations.length, currentStep].every(condition => condition === targetStep)) original.forEach(updateNode)
-        else if (targetStep === currentStep) animations.forEach(updateNode)
+        if ([0, currentStep].every(condition => condition === targetStep)) resetGrid()
+        else if ([animations.length, currentStep].every(condition => condition === targetStep)) animations.forEach((animation) => updateNode(animation, true))
+        else if (targetStep === currentStep) return
         else {
             let toAnimate = [...(animations || [])]
             if (currentStep > targetStep) {
@@ -51,9 +56,8 @@ const PathFindingVisualiser = () => {
     const animate = async (toAnimate, isForward) => {
         for (let i = 0; i < toAnimate.length; i++) {
             try {
-                await prepareAnimation({ animation: toAnimate[i], isForward })
+                await prepareAnimation({ toAnimate, isForward, i })
             } catch (error) {
-                console.log(error);
                 if (toAnimate.length > 1) control(pathFinding.setValue({
                     currentStep: currentStep + i + 1,
                     targetStep: currentStep + i + 1,
@@ -63,18 +67,26 @@ const PathFindingVisualiser = () => {
         }
     }
 
-    const prepareAnimation = ({ animation, isForward }) => new Promise((res, rej) => {
-        console.log(animation);
+    const prepareAnimation = ({ toAnimate, isForward, i }) => new Promise((res, rej) => {
         if (isPausedRef.current) rej()
-        updateNode(animation)
-        control(pathFinding.setValue({ currentStep: isForward ? Math.min(animations.length, currentStep + 1) : Math.max(0, currentStep - 1) }))
-        setTimeout(() => res(), (11 - (speed || 1)) * 10)
+        const animation = toAnimate[i]
+        updateNode(animation, isForward)
+        control(pathFinding.setValue({
+            currentStep: isForward ? Math.min(animations.length, currentStep + i + 1) : Math.max(0, currentStep + i - 1),
+            isPaused: (i === toAnimate.length - 1) || undefined
+        }))
+        setTimeout(() => res(), (11 - (speed || 1)) * 1)
     })
 
-    const updateNode = (node) => {
-        const { row, col, isPath } = node || {}
-        document.getElementById(`node-${row}-${col}`)?.classList?.toggle(isPath ? 'path' : 'visited')
+    const updateNode = (animation, isForward) => {
+        const { row, col, isPath } = animation || {}
+        const node = document.getElementById(`node-${row}-${col}`)
+        if (isForward) node?.classList?.add(isPath ? 'path' : 'visited')
+        else node?.classList?.remove(isPath ? 'path' : 'visited')
+
     }
+
+    const resetGrid = () => animations.forEach((animation) => updateNode(animation, false))
 
     return <div className="path-finding-visualiser-container col">
         <div className="path-finding-visualiser-inner-container">
@@ -95,6 +107,7 @@ const PathFindingVisualiser = () => {
                             id={`node-${i}-${j}`}
                             className={`node-container ${isTarget ? 'target' : isStart ? 'start' : isWall ? 'wall' : ''}`}
                             onMouseDown={() => {
+                                if (!isPaused) return
                                 setIsMousePressed(true)
                                 handleWall(i, j)
                             }}

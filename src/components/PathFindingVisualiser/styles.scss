@@ -32,17 +32,18 @@
                 &.wall {
                     border: 1px solid red;
                 }
-                &.start {
-                    background-color: green;
-                }
-                &.target {
-                    background-color: red;
-                }
+                
                 &.visited {
                     background-color: turquoise;
                 }
                 &.path {
                     background-color: gold;
+                }
+                &.start {
+                    background-color: green;
+                }
+                &.target {
+                    background-color: red;
                 }
             }
         }

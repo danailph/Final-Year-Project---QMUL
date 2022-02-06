@@ -11,6 +11,6 @@ export const getGrid = ({ rows = 20, cols = 50, start = { row: 10, col: 20 }, ta
     isTarget: row === target.row && col === target.col,
     distance: Infinity,
     isVisited: false,
-    isWall: false,
+    isWall: col === 25 && ![1, 2, 3, 4,].includes(row),
     previousNode: null,
 })))

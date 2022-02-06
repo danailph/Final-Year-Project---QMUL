@@ -1,7 +1,7 @@
 import { flatten } from 'lodash'
 
-export const dijkstra = (grid) => {
-    console.log("a");
+export const dijkstra = (original) => {
+    const grid = original.map(row => row.reduce((acc, cur) => [...acc, { ...cur }], []))
     const nodes = flatten(grid), animations = []
     const start = nodes.find(({ isStart }) => isStart)
     const target = nodes.find(({ isTarget }) => isTarget)
@@ -10,8 +10,6 @@ export const dijkstra = (grid) => {
         nodes.sort((a, b) => a.distance - b.distance)
         const currentNode = nodes.shift();
         const { col, row, isWall, distance } = currentNode || {};
-        console.log({ col, row });
-        console.log(isWall, distance);
         if (isWall) continue;
         if (distance === Infinity) break
         currentNode.isVisited = true;
@@ -25,7 +23,6 @@ export const dijkstra = (grid) => {
         if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
 
         const unvisited = neighbors.filter(({ isVisited, isWall }) => !isVisited || isWall)
-        console.log(unvisited.length);
         unvisited.forEach((node) => {
             node.distance = distance + 1;
             node.previousNode = currentNode;
@@ -37,5 +34,5 @@ export const dijkstra = (grid) => {
         pathNode = pathNode.previousNode
     }
 
-    return { original: grid, start, target, animations };
+    return { original, start, target, animations };
 }
