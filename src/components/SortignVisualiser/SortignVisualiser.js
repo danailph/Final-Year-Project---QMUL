@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useReducer } from 'react'
+import { useRef, forwardRef, useImperativeHandle, useEffect, useMemo, useReducer } from 'react'
 import Popup from 'reactjs-popup'
 import { Player } from "components"
 import { sortingVisualisationReducer } from 'config/reducer'
@@ -9,7 +9,7 @@ import { useQuery } from 'hooks'
 import { algorithms } from 'algorithms'
 import "./styles.scss"
 
-const SortignVisualiser = ({ state, dispatch }) => {
+const SortignVisualiser = forwardRef(({ state, dispatch, splitControls }, ref) => {
     const { data, isVisualiserSplit } = state || {}
     const { tab, option } = useQuery()
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
@@ -72,15 +72,26 @@ const SortignVisualiser = ({ state, dispatch }) => {
         setTimeout(() => res(), (11 - (speed || 1)) * 50)
     })
 
+    const bars = useRef([])
     const updateBar = ({ index, color, value, swap }) => {
-        const bars = document.getElementsByClassName('bar')
-        const bar = bars[index]
+        const bar = bars.current[index]
         if (!bar) return
         if (color) bar.style.backgroundColor = color
         if (value && swap) {
             bar.innerHTML = `<p>${value}</p>`
             bar.style.height = `${scaleNumber(value, 0, 100, 0, 100)}%`
         }
+    }
+
+    useImperativeHandle(ref, () => ({ controls }))
+
+    const controls = {
+        goToBeggining: () => control(sorting.goToBeggining()),
+        goBack: () => control(sorting.goBack()),
+        play: () => control(sorting.play()),
+        pause: () => control(sorting.pause()),
+        goForward: () => control(sorting.goForward()),
+        goToEnd: () => control(sorting.goToEnd())
     }
 
     return <div className="sorting-visualiser-container col">
@@ -111,6 +122,7 @@ const SortignVisualiser = ({ state, dispatch }) => {
             <div className="row row-bars">
                 {original?.map((bar, i) => <div key={`bar-${i}`} className="col">
                     <div
+                        ref={(ref) => bars.current[i] = ref}
                         className="bar"
                         style={{ height: `${scaleNumber(bar, 0, 100, 0, 100)}%` }}
                     >
@@ -121,18 +133,12 @@ const SortignVisualiser = ({ state, dispatch }) => {
             </div>
         </div>
         <Player
-            controls={{
-                goToBeggining: () => control(sorting.goToBeggining()),
-                goBack: () => control(sorting.goBack()),
-                play: () => control(sorting.play()),
-                pause: () => control(sorting.pause()),
-                goForward: () => control(sorting.goForward()),
-                goToEnd: () => control(sorting.goToEnd())
-            }}
+            controls={controls}
+            splitControls={splitControls}
             isPlaying={!isPaused}
             slider={{ value: speed, onChange: (value) => control(sorting.speed(value)) }}
         />
     </div >
-}
+})
 
 export default SortignVisualiser

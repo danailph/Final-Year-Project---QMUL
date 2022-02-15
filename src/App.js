@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 import { toggleOverlay, resetState } from 'config/actions'
 import { reducer, initialState } from 'config/reducer'
 import { Header, Overlay, Visulisers } from 'components'
@@ -18,15 +18,22 @@ const App = () => {
         dispatch(resetState())
     }, [option])
 
+    const vis1 = useRef()
+    const vis2 = useRef()
+    const [controls2, setControls2] = useState({})
+    useEffect(() => {
+        setControls2(vis2?.current?.controls || {})
+    }, [isVisualiserSplit])
+
     return <div className="algorithmic-visualiser-container">
         <Header toggleOverlay={() => dispatch(toggleOverlay())} />
         <div className="algorithmic-visualiser-content row">
 
-            <Visualiser  {...props} />
+            <Visualiser ref={vis1} splitControls={controls2} {...props} />
             {isVisualiserSplit &&
                 <>
                     <div className="spacer" />
-                    <Visualiser {...props} />
+                    <Visualiser ref={vis2} splitControls={vis1?.current?.controls} {...props} />
                 </>
             }
         </div>

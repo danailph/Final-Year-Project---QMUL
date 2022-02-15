@@ -9,6 +9,7 @@ export const options = {
     "data-structures": [{ label: 'a', value: 'a' }, { label: 'b', value: 'b' },],
     "sorting": [
         { label: 'Bubble Sort', value: 'bubble-sort' },
+        { label: 'Bubble Sort E', value: 'bubble-sort-e' },
         { label: 'Insertion Sort', value: 'insertion-sort' },
         { label: 'Quick Sort', value: 'quick-sort' },
     ],

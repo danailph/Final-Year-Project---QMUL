@@ -19,20 +19,22 @@
             height: calc(100% - 74px);
             align-items: center;
             justify-content: center;
-            padding: 2% 20%;
+            padding: 2% 1vw;
             .grid-container {
                 display: grid;
+                gap: 2px;
             }
             .node-container {
                 aspect-ratio: 1;
-                max-height: 25px;
-                max-width: 25px;
+                max-height: 40px;
+                max-width: 40px;
 
-                border: 1px solid black;
+                border: 1px solid lightgray;
+                border-radius: 6px;
                 &.wall {
-                    border: 1px solid red;
+                    border: 2px solid red;
                 }
-                
+
                 &.visited {
                     background-color: turquoise;
                 }
