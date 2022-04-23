@@ -3,6 +3,7 @@ export const tabs = [
     { label: 'Sorting', value: 'sorting' },
     { label: 'Searching', value: 'searching' },
     { label: 'Path Finding', value: 'path-finding' },
+    { label: 'Graph', value: 'graph' },
 ]
 
 export const options = {
@@ -15,6 +16,7 @@ export const options = {
     ],
     "searching": [{ label: 'c', value: 'c' }, { label: 'd', value: 'd' },],
     "path-finding": [{ label: "Dijkstra's Algorithm", value: 'dijkstra' }, { label: 'f', value: 'f' },],
+    graph: [{ label: "Graph", value: 'graph' }],
     null: [],
-    undefined: []
+    undefined: [],
 }
