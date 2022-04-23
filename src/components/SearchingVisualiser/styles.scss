@@ -1,0 +1,45 @@
+@import "base";
+
+.searching-visualiser-container {
+    position: relative;
+    @include card;
+    height: 100%;
+    width: 100%;
+    .searching-visualiser-inner-container {
+        flex: 1;
+        width: 100%;
+        .searching-visualiser-header {
+            padding: 0 1vw;
+            justify-content: space-between;
+            h2 {
+                font-weight: 100;
+                margin: 0;
+            }
+        }
+        .searching-visualiser-content {
+            // border: 1px solid $color-blue-light;
+            height: 500px;
+            width: 1000px;
+            position: relative;
+            .node {
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                background-color: $color-blue;
+                border-radius: 50%;
+                z-index: 2;
+                transform: translate(-50%, -50%);
+                color: $color-white;
+                justify-content: center;
+                cursor: pointer;
+                user-select: none;
+            }
+            .line {
+                position: absolute;
+                height: 4px;
+                background-color: $color-red;
+                transform-origin: top left;
+            }
+        }
+    }
+}
