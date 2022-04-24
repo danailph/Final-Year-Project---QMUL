@@ -51,3 +51,23 @@ export const pathFinding = {
     speed: pathFindingSpeed,
     setValue: pathFindingSetValue
 }
+
+const searchingGoToBeggining = (payload) => ({ type: 'searchingGoToBeggining', payload })
+const searchingGoBack = (payload) => ({ type: 'searchingGoBack', payload })
+const searchingPlay = (payload) => ({ type: 'searchingPlay', payload })
+const searchingPause = (payload) => ({ type: 'searchingPause', payload })
+const searchingGoForward = (payload) => ({ type: 'searchingGoForward', payload })
+const searchingGoToEnd = (payload) => ({ type: 'searchingGoToEnd', payload })
+const searchingSpeed = (payload) => ({ type: 'searchingSpeed', payload })
+const searchingSetValue = (payload) => ({ type: 'searchingSetValue', payload })
+
+export const searching = {
+    goToBeggining: searchingGoToBeggining,
+    goBack: searchingGoBack,
+    play: searchingPlay,
+    pause: searchingPause,
+    goForward: searchingGoForward,
+    goToEnd: searchingGoToEnd,
+    speed: searchingSpeed,
+    setValue: searchingSetValue
+}

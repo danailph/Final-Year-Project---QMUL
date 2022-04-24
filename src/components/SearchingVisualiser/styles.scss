@@ -1,0 +1,72 @@
+@import "base";
+
+.searching-visualiser-container {
+    position: relative;
+    @include card;
+    height: 100%;
+    width: 100%;
+    .searching-visualiser-inner-container {
+        flex: 1;
+        width: 100%;
+        .searching-visualiser-header {
+            padding: 0 1vw;
+            justify-content: flex-end;
+            h2 {
+                margin-right: auto;
+                font-weight: 100;
+            }
+            input {
+                width: 35px;
+                border-radius: 6px;
+                border: 1px solid $color-blue-light;
+                padding: 7px 8px;
+                margin: 0 16px;
+                &.invalid {
+                    box-shadow: 0 0 4px $color-red;
+                    border-color: $color-white;
+                }
+            }
+            .icon {
+                background-color: $color-blue-light;
+                border-radius: 6px;
+                height: 35px;
+                width: 35px;
+                background-size: 70%;
+            }
+        }
+        .searching-visualiser-content {
+            justify-content: space-between;
+            align-items: flex-end;
+            height: calc(100% - 74px);
+            padding: 2%;
+            .box {
+                flex: 1;
+                aspect-ratio: 1;
+                background-color: $color-blue;
+                margin: 0 10px;
+                border-radius: 6px;
+                justify-content: center;
+                font-weight: 700;
+                color: $color-white;
+            }
+        }
+    }
+    .player-container {
+        align-self: center;
+        width: 60%;
+        max-width: 500px;
+        margin: 3vh 0;
+    }
+}
+
+.searching-visualiser-split-options-container {
+    @include card;
+    p {
+        margin: 0;
+        padding: 10px 15px;
+        cursor: pointer;
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}

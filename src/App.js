@@ -33,7 +33,7 @@ const App = () => {
             {isVisualiserSplit &&
                 <>
                     <div className="spacer" />
-                    <Visualiser ref={vis2} splitControls={vis1?.current?.controls} {...props} />
+                    <Visualiser ref={vis2} isSplitInstance splitControls={vis1?.current?.controls} {...props} />
                 </>
             }
         </div>

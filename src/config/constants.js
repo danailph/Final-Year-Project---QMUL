@@ -14,7 +14,7 @@ export const options = {
         { label: 'Insertion Sort', value: 'insertion-sort' },
         { label: 'Quick Sort', value: 'quick-sort' },
     ],
-    "searching": [{ label: 'c', value: 'c' }, { label: 'd', value: 'd' },],
+    "searching": [{ label: 'Linear Search', value: 'linear-search' }, { label: 'Binary Search', value: 'binary-search' },],
     "path-finding": [{ label: "Dijkstra's Algorithm", value: 'dijkstra' }, { label: 'f', value: 'f' },],
     graph: [{ label: "Graph", value: 'graph' }],
     null: [],
