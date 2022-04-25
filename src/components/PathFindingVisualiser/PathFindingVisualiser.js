@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo, useReducer } from "react"
+import React, { useState, useRef, forwardRef, useEffect, useMemo, useReducer } from "react"
 import { Player } from "components"
 import { pathFindingVisualisationReducer } from 'config/reducer'
 import { options } from 'config/constants'
@@ -8,7 +8,7 @@ import { getGrid } from 'config/utilties'
 import { algorithms } from "algorithms"
 import "./styles.scss"
 
-const PathFindingVisualiser = () => {
+const PathFindingVisualiser = forwardRef(() => {
     const { tab, option } = useQuery()
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
     const initialState = useMemo(() => ({ isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[option](getGrid()) }), [option])
@@ -135,6 +135,6 @@ const PathFindingVisualiser = () => {
             slider={{ value: speed, onChange: (value) => control(pathFinding.speed(value)) }}
         />
     </div >
-}
+})
 
 export default PathFindingVisualiser

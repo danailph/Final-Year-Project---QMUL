@@ -1,0 +1,80 @@
+@import "base";
+.linked-list-container {
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0.5vw 1vw;
+    .linked-list-content {
+        min-height: 50px;
+        // justify-content: space-between;
+        height: 80px;
+        margin: 150px 0;
+        > .arrow {
+            margin: 0 10px;
+        }
+        .scroll-container {
+            flex: 1;
+            overflow: auto;
+            border: 1px solid black;
+            min-height: 60px;
+            border-radius: 6px;
+            padding: 10px;
+        }
+        .single-element {
+            p {
+                margin: 0;
+                height: 60px;
+                aspect-ratio: 1;
+                background-color: $color-blue;
+                color: $color-white;
+                font-weight: 700;
+                justify-content: center;
+                border-radius: 6px;
+                line-height: 60px;
+                text-align: center;
+            }
+        }
+        .arrow {
+            background-color: red;
+            width: 50px;
+            height: 2px;
+            position: relative;
+            margin: 0 10px;
+            &::after {
+                content: "";
+                position: absolute;
+                right: -1px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-left: 10px solid $color-red;
+            }
+        }
+    }
+    .linked-list-controls {
+        justify-content: space-between;
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            height: 36px;
+            padding: 0px 25px;
+            margin: 10px 0px;
+
+            background-color: $color-blue;
+            box-shadow: 0px 1px 4px rgba(0, 52, 112, 0.15);
+            border-radius: 5px;
+
+            font-family: "CorsaGrotesk", sans-serif;
+            color: $color-white;
+            font-weight: 500;
+            font-size: 14px;
+
+            cursor: pointer;
+            box-shadow: 0px 5px 15px 0px #00347026;
+        }
+    }
+}

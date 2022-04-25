@@ -7,7 +7,11 @@ export const tabs = [
 ]
 
 export const options = {
-    "data-structures": [{ label: 'a', value: 'a' }, { label: 'b', value: 'b' }],
+    "data-structures": [
+        { label: 'Linked List', value: 'linked-list' },
+        { label: 'Stack', value: 'stack' },
+        { label: 'Queue', value: 'queue' }
+    ],
     "sorting": [
         { label: 'Bubble Sort', value: 'bubble-sort' },
         { label: 'Bubble Sort E', value: 'bubble-sort-e' },
