@@ -71,3 +71,23 @@ export const searching = {
     speed: searchingSpeed,
     setValue: searchingSetValue
 }
+
+const graphGoToBeggining = (payload) => ({ type: 'graphGoToBeggining', payload })
+const graphGoBack = (payload) => ({ type: 'graphGoBack', payload })
+const graphPlay = (payload) => ({ type: 'graphPlay', payload })
+const graphPause = (payload) => ({ type: 'graphPause', payload })
+const graphGoForward = (payload) => ({ type: 'graphGoForward', payload })
+const graphGoToEnd = (payload) => ({ type: 'graphGoToEnd', payload })
+const graphSpeed = (payload) => ({ type: 'graphSpeed', payload })
+const graphSetValue = (payload) => ({ type: 'graphSetValue', payload })
+
+export const graphActions = {
+    goToBeggining: graphGoToBeggining,
+    goBack: graphGoBack,
+    play: graphPlay,
+    pause: graphPause,
+    goForward: graphGoForward,
+    goToEnd: graphGoToEnd,
+    speed: graphSpeed,
+    setValue: graphSetValue
+}

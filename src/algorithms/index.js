@@ -1,6 +1,7 @@
 import { bubbleSort, bubbleSortE } from "./bubbleSort"
 import { dijkstra } from "./dijkstra"
 import { linearSearch, binarySearch } from "./search"
+import { dfs, bfs } from './graphs'
 
 
 export const algorithms = {
@@ -10,7 +11,9 @@ export const algorithms = {
     'quick-sort': () => ({}),
     'linear-search': linearSearch,
     'binary-search': binarySearch,
-    'dijkstra': dijkstra,
+    dijkstra,
+    dfs,
+    bfs,
 
     undefined: () => ({})
 }

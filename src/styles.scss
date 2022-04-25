@@ -1,11 +1,23 @@
 .algorithmic-visualiser-container {
     position: relative;
     height: 100%;
+    &.searching {
+        .algorithmic-visualiser-content.row {
+            flex-direction: column;
+        }
+        .searching-visualiser-header .icon {
+            transform: rotate(90deg);
+            &:active {
+                transform: rotate(90deg) scale(0.95);
+            }
+        }
+    }
     .algorithmic-visualiser-content {
         height: calc(100% - 54px);
         padding: 2vh 1vw;
-        .spacer{
+        .spacer {
             width: 3vw;
+            height: 3vw;
         }
     }
 }

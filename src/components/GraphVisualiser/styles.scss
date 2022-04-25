@@ -13,17 +13,23 @@
             justify-content: space-between;
             h2 {
                 font-weight: 100;
-                margin: 0;
+            }
+             .icon {
+                background-color: $color-blue-light;
+                border-radius: 6px;
+                height: 35px;
+                width: 35px;
+                background-size: 70%;
             }
         }
         .graph-visualiser-content {
             // border: 1px solid $color-blue-light;
-            height: 500px;
-            width: 1000px;
+            // height: 500px;
+            // width: 1000px;
             position: relative;
             .node {
-                width: 40px;
-                height: 40px;
+                width: 60px;
+                height: 60px;
                 position: absolute;
                 background-color: $color-blue;
                 border-radius: 50%;
@@ -33,13 +39,44 @@
                 justify-content: center;
                 cursor: pointer;
                 user-select: none;
+                font-size: 20px;
             }
             .line {
                 position: absolute;
-                height: 4px;
+                height: 2px;
                 background-color: $color-red;
                 transform-origin: top left;
+                // &::after {
+                //     content: "";
+                //     position: absolute;
+                //     right: 15px;
+                //     top: 50%;
+                //     transform: translateY(-50%);
+                //     width: 0;
+                //     height: 0;
+                //     border-top: 15px solid transparent;
+                //     border-bottom: 15px solid transparent;
+                //     border-left: 15px solid $color-red;
+                // }
             }
+        }
+    }
+    .player-container {
+        align-self: center;
+        width: 60%;
+        max-width: 500px;
+        margin: 3vh 0;
+    }
+}
+
+.graphs-visualiser-split-options-container {
+    @include card;
+    p {
+        margin: 0;
+        padding: 10px 15px;
+        cursor: pointer;
+        &:active {
+            transform: scale(0.98);
         }
     }
 }

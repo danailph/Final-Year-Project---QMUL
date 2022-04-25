@@ -1,5 +1,4 @@
 export const linearSearch = (data, value = 70) => {
-    console.log(data, value);
     const animations = []
     for (let i = 0; i < data.length; i++) {
         animations.push({ index: i, color: 'red' })
@@ -12,7 +11,7 @@ export const linearSearch = (data, value = 70) => {
 }
 
 export const binarySearch = (dataParam, value) => {
-    const data = dataParam.sort((a, b) => a - b)
+    const data = [...dataParam].sort((a, b) => a - b)
     const animations = []
 
     let start = 0, end = data.length - 1;

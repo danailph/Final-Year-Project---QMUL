@@ -12,13 +12,18 @@ import { isArray } from "lodash"
 
 
 const SearchingVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitControls }, ref) => {
+    const [search, setSeatch] = useState(67)
     const { data, isVisualiserSplit } = state || {}
     let { tab, option } = useQuery()
     if (isSplitInstance) option = isVisualiserSplit?.value
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
-    const initialState = useMemo(() => ({ isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[option](data) }), [])
+    const initialState = useMemo(() => ({ isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[option](data, Number(search)) }), [data, isVisualiserSplit, option, search])
     const [visualisation, control] = useReducer(searchingVisualisationReducer, initialState)
     const { data: original, animations, isPaused, currentStep, targetStep, speed } = visualisation || {}
+
+    useEffect(() => {
+        control(searching.setValue({ ...initialState }))
+    }, [initialState])
 
     const isPausedRef = useRef(isPaused)
     isPausedRef.current = isPaused
@@ -93,25 +98,12 @@ const SearchingVisualiser = forwardRef(({ state, dispatch, isSplitInstance, spli
         goToEnd: () => control(searching.goToEnd())
     }
 
-    const [search, setSeatch] = useState("")
-    useEffect(() => {
-        console.log('r');
-        control(searching.setValue({
-            isPaused: true,
-            currentStep: 0,
-            targetStep: 0,
-            speed: 5,
-            ...algorithms[option](data, Number(search))
-        }))
-    }, [search])
-
-
     return <div className="searching-visualiser-container col">
         <div className="searching-visualiser-inner-container">
             <div className="searching-visualiser-header row">
                 <h2>{isSplitInstance ? isVisualiserSplit?.label : optionLabel}</h2>
                 <span>Searching For</span>
-                <input className="invalid" value={search} onChange={({ target: { value } }) => setSeatch(value)} />
+                <input className={!search ? "invalid" : ""} value={search} onChange={({ target: { value } }) => setSeatch(value)} />
                 {isVisualiserSplit
                     ? <div className="icon icon-combine" onClick={() => dispatch(toggleVisualiserSplit(null))} />
                     : <Popup
