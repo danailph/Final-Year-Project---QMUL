@@ -20,6 +20,28 @@
         transform: translateX(20vw);
         transition: 0.3s ease-in;
         border-radius: 6px;
+
+        padding: 0.5vw 1vw;
+        
+        .icon-arrow-down {
+            // height: 30px;
+            margin-top: 25px;
+            margin-left: auto;
+            height: 20px;
+            width: 20px;
+            transition: 0.4s;
+            &.rotate {
+                transform: rotate(180deg);
+            }
+        }
+        .row-collapse {
+            overflow: hidden;
+            transition: all 0.4s ease-in;
+            height: 0;
+            &.active {
+                height: auto;
+            }
+        }
     }
     &.open {
         opacity: 1;
