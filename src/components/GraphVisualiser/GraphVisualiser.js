@@ -184,7 +184,7 @@ const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitCon
                 }
             </div>
             <div className="graph-visualiser-content" ref={graphRef}>
-                {original.map(([node]) =>
+                {original?.map(([node]) =>
                     <div
                         key={`node-${node}`}
                         ref={ref => nodesRef.current[node] = ref}

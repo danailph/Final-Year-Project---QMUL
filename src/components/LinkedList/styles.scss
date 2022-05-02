@@ -1,13 +1,13 @@
 @import "base";
 .linked-list-container {
     height: 100%;
-    justify-content: flex-end;
+    // justify-content: flex-end;
     padding: 0.5vw 1vw;
     .linked-list-content {
         min-height: 50px;
         // justify-content: space-between;
         height: 80px;
-        margin: 150px 0;
+        margin: auto 0;
         > .arrow {
             margin: 0 10px;
         }
@@ -54,7 +54,8 @@
         }
     }
     .linked-list-controls {
-        justify-content: space-between;
+        margin-top: auto;
+        justify-content: center;
         .button {
             display: flex;
             align-items: center;
@@ -62,8 +63,7 @@
 
             height: 36px;
             padding: 0px 25px;
-            margin: 10px 0px;
-
+            margin: 10px;
             background-color: $color-blue;
             box-shadow: 0px 1px 4px rgba(0, 52, 112, 0.15);
             border-radius: 5px;

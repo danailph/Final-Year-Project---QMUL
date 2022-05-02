@@ -9,9 +9,10 @@ import { useQuery } from 'hooks'
 import { algorithms } from 'algorithms'
 import "./styles.scss"
 
-const SortignVisualiser = forwardRef(({ state, dispatch, splitControls }, ref) => {
+const SortignVisualiser = forwardRef(({ state, dispatch, splitControls, isSplitInstance }, ref) => {
     const { data, isVisualiserSplit } = state || {}
-    const { tab, option } = useQuery()
+    let { tab, option } = useQuery()
+    if (isSplitInstance) option = isVisualiserSplit?.value
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
     const initialState = useMemo(() => ({ isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[isVisualiserSplit?.value || option](data) }), [data, isVisualiserSplit, option])
     const [visualisation, control] = useReducer(sortingVisualisationReducer, initialState)
@@ -102,7 +103,7 @@ const SortignVisualiser = forwardRef(({ state, dispatch, splitControls }, ref) =
     return <div className="sorting-visualiser-container col">
         <div className="sorting-visualiser-inner-container">
             <div className="row sorting-visualiser-header" >
-                <h2>{isVisualiserSplit?.label || optionLabel}</h2>
+                <h2>{optionLabel}</h2>
                 {isVisualiserSplit
                     ? <div className="icon icon-combine" onClick={() => dispatch(toggleVisualiserSplit(null))} />
                     : <Popup
