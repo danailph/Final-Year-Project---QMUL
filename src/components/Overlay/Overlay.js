@@ -1,11 +1,12 @@
 
 import { useRef } from 'react'
 import { setStateValue, toggleOverlay } from 'config/actions'
+import { colorsPalletes, descriptions, codes } from 'config/constants'
 import { useOnClickOutside, useCollapsable, useQuery } from 'hooks'
 import "./styles.scss"
 
 const Overlay = ({ state, dispatch }) => {
-    const { tab } = useQuery()
+    const { tab, option } = useQuery()
     const { isOverlayVisible } = state || {}
 
     const uploadInputRef = useRef(null)
@@ -19,7 +20,7 @@ const Overlay = ({ state, dispatch }) => {
     const collapsableRefCode = useRef(null)
     const [isExpandedAbout, setExpandedAbout] = useCollapsable(collapsableRefAbout)
     const [isExpandedTheme, setExpandedTheme] = useCollapsable(collapsableRefTheme)
-    const [isExpandedCode, setExpandedCode] = useCollapsable(collapsableRefCode, true)
+    const [isExpandedCode, setExpandedCode] = useCollapsable(collapsableRefCode)
 
 
     const onUpload = ({ target: { files } }) => {
@@ -44,7 +45,7 @@ const Overlay = ({ state, dispatch }) => {
     }
 
     return <div className={`overlay-container ${isOverlayVisible && 'open'}`}>
-        <div className="overlay-inner-container" ref={containerRef}>
+        <div className="overlay-inner-container col" ref={containerRef}>
             <div className="overlay-header">
                 <div className="row">
                     <h2>Settings</h2>
@@ -65,20 +66,19 @@ const Overlay = ({ state, dispatch }) => {
                 <h3>About Algorithmius</h3>
                 <div className={`icon icon-arrow-down ${isExpandedAbout && 'rotate'}`} />
             </div>
-            <div className="row-collapse" ref={collapsableRefAbout}>
-                djiioawjdoiawjdoi
+            <div className="row-collapse" ref={collapsableRefAbout} style={{ flexShrink: 0 }}>
+                <p>'Algorithmius' was writen as final year software project for my computer scince degree. It includes engaging visualisations and information about some of the most common
+                    data structures and algorithms thought to students. Its purpose is to support leading and help students gain a deeper understanding of the underlying conceps. Enjoy!</p>
             </div>
 
             <div className="row row-expand" onClick={() => setExpandedTheme(!isExpandedTheme)} style={{ cursor: 'pointer' }}>
                 <h3>Color theme</h3>
                 <div className={`icon icon-arrow-down ${isExpandedTheme && 'rotate'}`} />
             </div>
-            <div className="row-collapse" ref={collapsableRefTheme}>
-                {[["#170fe6", "#bf0202", "green", "turquoise", "gold"],
-                ["#A85CF9", '#6FDFDF', '#446A46', '#F8B400', '#FF6363'],
-                ].map((pallete, i) => <div
+            <div className="row-collapse" ref={collapsableRefTheme} style={{flexShrink: 0}}>
+                {colorsPalletes.map((pallete, i) => <div
                     key={`pallate-${i}`}
-                    className="row"
+                    className="pallate-row row"
                     onClick={() => {
                         const keys = ["main", "invalid", "valid", "visited", "path"]
                         dispatch(setStateValue({ colors: keys.reduce((acc, key, j) => ({ ...acc, [key]: pallete[j] }), {}) }))
@@ -89,7 +89,7 @@ const Overlay = ({ state, dispatch }) => {
                         })
                     }}
                 >
-                    {pallete.map((color, n) => <div key={`color-${n}`} style={{ width: 30, height: 10, backgroundColor: color }} className=""></div>)}
+                    {pallete.map((backgroundColor, n) => <div key={`color-${n}`} style={{ backgroundColor }} className=""></div>)}
                 </div>)}
             </div>
 
@@ -97,8 +97,9 @@ const Overlay = ({ state, dispatch }) => {
                 <h3>Code information</h3>
                 <div className={`icon icon-arrow-down ${isExpandedCode && 'rotate'}`} />
             </div>
-            <div className="row-collapse active" ref={collapsableRefCode}>
-                djiioawjdoiawjdoi
+            <div className="row-collapse active" ref={collapsableRefCode} style={{ overflow: 'auto' }}>
+                <p style={{ whiteSpace: "pre-wrap" }}>{descriptions?.[tab]?.[option]}</p>
+                <p className='code' style={{ whiteSpace: "pre-wrap" }}>{codes?.[tab]?.[option]}</p>
             </div>
 
         </div>

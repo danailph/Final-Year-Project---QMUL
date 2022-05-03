@@ -39,7 +39,7 @@ const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitCon
     const [points, setPoints] = useState()
     useEffect(() => {
         setPoints(getPoints(original))
-    }, [isVisualiserSplit])
+    }, [isVisualiserSplit, option])
 
     const connect = useCallback((div1, div2) => {
         if (!points) return
