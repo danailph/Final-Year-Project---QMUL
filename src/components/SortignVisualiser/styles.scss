@@ -34,7 +34,7 @@
                 justify-content: flex-end;
                 .bar {
                     position: relative;
-                    background-color: $color-blue;
+                    background-color: var(--color-main);
                     margin: 0 10px;
                     border-radius: 6px;
                 }

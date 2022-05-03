@@ -1,4 +1,10 @@
 .algorithmic-visualiser-container {
+    --color-main: #170fe6;
+    --color-invalid: #bf0202;
+    --color-valid: green;
+    --color-visited: turquoise;
+    --color-path: gold;
+
     position: relative;
     height: 100%;
     &.searching {

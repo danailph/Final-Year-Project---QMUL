@@ -43,8 +43,6 @@ const Overlay = ({ state, dispatch }) => {
         fr.readAsText(files[0]);
     }
 
-    console.log(state);
-
     return <div className={`overlay-container ${isOverlayVisible && 'open'}`}>
         <div className="overlay-inner-container" ref={containerRef}>
             <div className="overlay-header">
@@ -76,7 +74,23 @@ const Overlay = ({ state, dispatch }) => {
                 <div className={`icon icon-arrow-down ${isExpandedTheme && 'rotate'}`} />
             </div>
             <div className="row-collapse" ref={collapsableRefTheme}>
-                djiioawjdoiawjdoi
+                {[["#170fe6", "#bf0202", "green", "turquoise", "gold"],
+                ["#A85CF9", '#6FDFDF', '#446A46', '#F8B400', '#FF6363'],
+                ].map((pallete, i) => <div
+                    key={`pallate-${i}`}
+                    className="row"
+                    onClick={() => {
+                        const keys = ["main", "invalid", "valid", "visited", "path"]
+                        dispatch(setStateValue({ colors: keys.reduce((acc, key, j) => ({ ...acc, [key]: pallete[j] }), {}) }))
+                        const container = document.getElementById('algorithmic-visualiser-container')
+                        keys.forEach((key, j) => {
+                            container.style.setProperty(`--color-${key}`, pallete[j]);
+
+                        })
+                    }}
+                >
+                    {pallete.map((color, n) => <div key={`color-${n}`} style={{ width: 30, height: 10, backgroundColor: color }} className=""></div>)}
+                </div>)}
             </div>
 
             <div className="row row-expand" onClick={() => setExpandedCode(!isExpandedCode)} style={{ cursor: 'pointer' }}>

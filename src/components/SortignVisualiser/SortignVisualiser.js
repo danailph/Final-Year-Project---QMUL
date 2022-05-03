@@ -10,7 +10,7 @@ import { algorithms } from 'algorithms'
 import "./styles.scss"
 
 const SortignVisualiser = forwardRef(({ state, dispatch, splitControls, isSplitInstance }, ref) => {
-    const { data, isVisualiserSplit } = state || {}
+    const { data, isVisualiserSplit, colors } = state || {}
     let { tab, option } = useQuery()
     if (isSplitInstance) option = isVisualiserSplit?.value
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
@@ -31,8 +31,8 @@ const SortignVisualiser = forwardRef(({ state, dispatch, splitControls, isSplitI
             isFirstRender.current = false
             return
         }
-        if ([0, currentStep].every(condition => condition === targetStep)) original.forEach((value, index) => updateBar({ index, value, swap: true, color: '#170fe6' }))
-        else if ([animations.length, currentStep].every(condition => condition === targetStep)) sorted.forEach((value, index) => updateBar({ index, value, swap: true, color: 'turquoise' }))
+        if ([0, currentStep].every(condition => condition === targetStep)) original.forEach((value, index) => updateBar({ index, value, swap: true, color: colors.main }))
+        else if ([animations.length, currentStep].every(condition => condition === targetStep)) sorted.forEach((value, index) => updateBar({ index, value, swap: true, color: colors.visited }))
         else if (targetStep === currentStep) return
         else {
             let toAnimate = [...(animations || [])]
@@ -65,8 +65,10 @@ const SortignVisualiser = forwardRef(({ state, dispatch, splitControls, isSplitI
         const animation = toAnimate[i]
         let { color, index, oldValue, newValue, swap } = animation
         if (!isForward) {
-            color = color === 'red' ? "#170fe6" : color === "turquoise" ? "red" : color;
+            color = color === 'invalid' ? colors.main : color === "visited" ? colors.invalid : colors.visited;
             [oldValue, newValue] = [newValue, oldValue]
+        } else {
+            color = color === 'invalid' ? colors.invalid : color === "visited" ? colors.visited : "";
         }
         updateBar({ index, color, swap, value: newValue })
         updateBar({ index: index + 1, color, swap, value: oldValue })

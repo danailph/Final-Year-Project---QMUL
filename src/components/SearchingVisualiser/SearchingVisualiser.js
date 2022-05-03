@@ -13,7 +13,7 @@ import { isArray } from "lodash"
 
 const SearchingVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitControls }, ref) => {
     const [search, setSeatch] = useState(67)
-    const { data, isVisualiserSplit } = state || {}
+    const { data, isVisualiserSplit, colors } = state || {}
     let { tab, option } = useQuery()
     if (isSplitInstance) option = isVisualiserSplit?.value
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
@@ -34,8 +34,8 @@ const SearchingVisualiser = forwardRef(({ state, dispatch, isSplitInstance, spli
             isFirstRender.current = false
             return
         }
-        if ([0, currentStep].every(condition => condition === targetStep)) original.forEach((value, index) => updateBox({ index, color: '#170fe6' }))
-        else if ([animations.length, currentStep].every(condition => condition === targetStep)) animations.forEach(({ color, index }) => updateBox({ index, color }))
+        if ([0, currentStep].every(condition => condition === targetStep)) original.forEach((value, index) => updateBox({ index, color: colors.main }))
+        else if ([animations.length, currentStep].every(condition => condition === targetStep)) animations.forEach(({ color, index }) => updateBox({ index, color: colors[color] }))
         else if (targetStep === currentStep) return
         else {
             let toAnimate = [...(animations || [])]
@@ -67,7 +67,8 @@ const SearchingVisualiser = forwardRef(({ state, dispatch, isSplitInstance, spli
         if (isPausedRef.current) rej()
         const animation = toAnimate[i]
         let { color, index } = animation
-        if (!isForward) color = color === 'red' ? "#170fe6" : color === "green" ? "red" : color;
+        if (!isForward) color = color === 'invalid' ? colors.main : color === colors.valid ? colors.invalid : color;
+        else color = colors[color]
         updateBox({ index, color })
         control(searching.setValue({
             currentStep: isForward ? Math.min(animations.length, currentStep + i + 1) : Math.max(0, currentStep + i - 1),

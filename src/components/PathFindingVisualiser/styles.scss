@@ -32,20 +32,20 @@
                 border: 1px solid lightgray;
                 border-radius: 6px;
                 &.wall {
-                    border: 2px solid red;
+                    border: 2px solid var(--color-invalid);
                 }
 
                 &.visited {
-                    background-color: turquoise;
+                    background-color: var(--color-visited);
                 }
                 &.path {
-                    background-color: gold;
+                    background-color: var(--color-path);
                 }
                 &.start {
-                    background-color: green;
+                    background-color: var(--color-valid);
                 }
                 &.target {
-                    background-color: red;
+                    background-color: var(--color-invalid);
                 }
             }
         }

@@ -22,7 +22,7 @@
                 padding: 7px 8px;
                 margin: 0 16px;
                 &.invalid {
-                    box-shadow: 0 0 4px $color-red;
+                    box-shadow: 0 0 4px var(--color-invalid);
                     border-color: $color-white;
                 }
             }
@@ -42,7 +42,7 @@
             .box {
                 flex: 1;
                 aspect-ratio: 1;
-                background-color: $color-blue;
+                background-color: var(--color-main);
                 margin: 0 10px;
                 border-radius: 6px;
                 justify-content: center;

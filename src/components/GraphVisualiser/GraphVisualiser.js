@@ -10,7 +10,7 @@ import Popup from "reactjs-popup"
 import "./styles.scss"
 
 const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitControls }, ref) => {
-    const { graph, isVisualiserSplit } = state || {}
+    const { graph, isVisualiserSplit, colors } = state || {}
     let { tab, option } = useQuery()
     if (isSplitInstance) option = isVisualiserSplit?.value
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
@@ -98,8 +98,8 @@ const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitCon
             isFirstRender.current = false
             return
         }
-        if ([0, currentStep].every(condition => condition === targetStep)) original.forEach((value, index) => updateNode({ index, color: '#170fe6' }))
-        else if ([animations.length, currentStep].every(condition => condition === targetStep)) animations.forEach((index) => updateNode({ index, color: 'red' }))
+        if ([0, currentStep].every(condition => condition === targetStep)) original.forEach((value, index) => updateNode({ index, color: colors.main }))
+        else if ([animations.length, currentStep].every(condition => condition === targetStep)) animations.forEach((index) => updateNode({ index, color: colors.invalid }))
         else if (targetStep === currentStep) return
         else {
             let toAnimate = [...(animations || [])]
@@ -131,7 +131,7 @@ const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitCon
         if (isPausedRef.current) rej()
         const animation = toAnimate[i]
         let index = animation
-        updateNode({ index, color: isForward ? 'red' : "#170fe6" })
+        updateNode({ index, color: isForward ? colors.invalid : colors.main })
         control(graphActions.setValue({
             currentStep: isForward ? Math.min(animations.length, currentStep + i + 1) : Math.max(0, currentStep + i - 1),
             isPaused: (i === toAnimate.length - 1) || undefined

@@ -21,7 +21,7 @@
             margin: 5px;
             &.icon-pause,
             &.icon-play {
-                background-color: $color-blue;
+                background-color: var(--color-main);
                 border-radius: 6px;
                 background-size: 70%;
                 height: 40px;

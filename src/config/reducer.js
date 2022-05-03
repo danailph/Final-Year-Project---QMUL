@@ -5,7 +5,14 @@ export const initialState = {
     graph: randomGraph(12, 2),
     grid: getGrid(),
     isOverlayVisible: false,
-    isVisualiserSplit: false
+    isVisualiserSplit: false,
+    colors: {
+        main: "#170fe6",
+        invalid: "#bf0202",
+        valid: "green",
+        visited: "turquoise",
+        path: "gold",
+    }
 }
 
 export const reducer = (state, { type, payload }) => {

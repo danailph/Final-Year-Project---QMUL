@@ -25,7 +25,7 @@ const App = () => {
         setControls2(vis2?.current?.controls || {})
     }, [isVisualiserSplit])
 
-    return <div className={`algorithmic-visualiser-container ${tab}`}>
+    return <div id="algorithmic-visualiser-container" className={`algorithmic-visualiser-container ${tab}`}>
         <Header toggleOverlay={() => dispatch(toggleOverlay())} />
         <div className="algorithmic-visualiser-content row">
             <Visualiser ref={vis1} splitControls={controls2} {...props} />
