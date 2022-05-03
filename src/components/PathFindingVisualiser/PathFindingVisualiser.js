@@ -4,14 +4,14 @@ import { pathFindingVisualisationReducer } from 'config/reducer'
 import { options } from 'config/constants'
 import { pathFinding } from "config/actions"
 import { useQuery } from 'hooks'
-import { getGrid } from 'config/utilties'
 import { algorithms } from "algorithms"
 import "./styles.scss"
 
-const PathFindingVisualiser = forwardRef(() => {
+const PathFindingVisualiser = forwardRef(({ state }, ref) => {
+    const { grid } = state || {}
     const { tab, option } = useQuery()
     const optionLabel = useMemo(() => options[tab]?.find(({ value }) => value === option)?.label, [tab, option])
-    const initialState = useMemo(() => ({ isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[option](getGrid()) }), [option])
+    const initialState = useMemo(() => ({ isPaused: true, currentStep: 0, targetStep: 0, speed: 5, ...algorithms[option](grid) }), [option, grid])
     const [visualisation, control] = useReducer(pathFindingVisualisationReducer, initialState)
     const { original, start, target, animations, isPaused, currentStep, targetStep, speed } = visualisation || {}
 
@@ -27,6 +27,11 @@ const PathFindingVisualiser = forwardRef(() => {
             targetStep: 0
         }))
     }
+
+
+    useEffect(() => {
+        control(pathFinding.setValue({ ...initialState }))
+    }, [initialState])
 
     const isPausedRef = useRef(isPaused)
     isPausedRef.current = isPaused

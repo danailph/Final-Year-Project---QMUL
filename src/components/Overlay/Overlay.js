@@ -1,12 +1,14 @@
 
 import { useRef } from 'react'
-import { toggleOverlay } from 'config/actions'
-import { useOnClickOutside, useCollapsable } from 'hooks'
+import { setStateValue, toggleOverlay } from 'config/actions'
+import { useOnClickOutside, useCollapsable, useQuery } from 'hooks'
 import "./styles.scss"
 
 const Overlay = ({ state, dispatch }) => {
-    const { isOverlayVisible, overlayProps } = state || {}
-    const { onUpload = () => { } } = overlayProps || {}
+    const { tab } = useQuery()
+    const { isOverlayVisible } = state || {}
+
+    const uploadInputRef = useRef(null)
 
     const containerRef = useRef()
     const hide = () => dispatch(toggleOverlay())
@@ -20,16 +22,47 @@ const Overlay = ({ state, dispatch }) => {
     const [isExpandedCode, setExpandedCode] = useCollapsable(collapsableRefCode, true)
 
 
+    const onUpload = ({ target: { files } }) => {
+        var fr = new FileReader();
+        fr.onload = function () {
+            if (['sorting', 'searching'].includes(tab)) dispatch(setStateValue({ data: fr.result.split(",").map(n => Number(n)) }))
+            if (['graph'].includes(tab)) dispatch(setStateValue({ graph: fr.result.split("\n").map((node, i) => [i, node.split(",").map(n => Number(n))]) }))
+            if (['path-finding'].includes(tab)) dispatch(setStateValue({
+                grid: fr.result.split("\n").map((row, i) => row.split(",").map((value, j) => ({
+                    row: i,
+                    col: j,
+                    isStart: value === "1",
+                    isTarget: value === "2",
+                    distance: Infinity,
+                    isVisited: false,
+                    isWall: value === "3",
+                    previousNode: null,
+                })))
+            }))
+        }
+        fr.readAsText(files[0]);
+    }
+
+    console.log(state);
+
     return <div className={`overlay-container ${isOverlayVisible && 'open'}`}>
         <div className="overlay-inner-container" ref={containerRef}>
-            <div className="">
+            <div className="overlay-header">
                 <div className="row">
                     <h2>Settings</h2>
                 </div>
-                <span>Upload csv file</span>
-                <div className="" onClick={() => onUpload()}>Upload</div>
+                {['sorting', 'searching', 'graph', 'path-finding'].includes(tab) && <>
+                    <h3>Upload csv file</h3>
+                    <div className="btn-upload" onClick={() => uploadInputRef.current.click()}>Upload</div>
+                    <input
+                        ref={uploadInputRef}
+                        style={{ display: "none" }}
+                        type="file"
+                        accept=".txt"
+                        onChange={onUpload}
+                    />
+                </>}
             </div>
-
             <div className="row row-expand" onClick={() => setExpandedAbout(!isExpandedAbout)} style={{ cursor: 'pointer' }}>
                 <h3>About Algorithmius</h3>
                 <div className={`icon icon-arrow-down ${isExpandedAbout && 'rotate'}`} />

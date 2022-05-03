@@ -69,7 +69,6 @@ const LinkedList = () => {
 
   const indexOf = (element) => {
     let current = linkedList.head;
-    console.log(element, current);
     for (let i = 0; i < linkedList.count && current !== null; i++) {
       if (element === current.element) return i;
       current = current.next;
@@ -95,7 +94,6 @@ const LinkedList = () => {
     }
     return linkedListArr;
   }
-  console.log(toString());
   return <div className="linked-list-container col">
     <div className="linked-list-content row">
       <h2>Head</h2>

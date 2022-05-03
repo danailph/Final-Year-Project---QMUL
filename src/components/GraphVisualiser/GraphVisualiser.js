@@ -24,12 +24,13 @@ const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitCon
     const { original, animations, isPaused, currentStep, targetStep, speed } = visualisation || {}
 
     useEffect(() => {
+        const lines = [...document.getElementsByClassName("line")]
+        lines.forEach(l => l.remove())
         control(graphActions.setValue({ ...initialState }))
     }, [initialState])
 
     const graphRef = useRef(null)
     const getPoints = (arr) => {
-        console.log(graphRef);
         return arr.map((n, i) => ({
             y: Math.floor(i / 3) * 150 + 80,
             x: i % 3 * 200 + (graphRef.current.getBoundingClientRect().width / 2 - 200)
@@ -137,7 +138,6 @@ const GraphVisualiser = forwardRef(({ state, dispatch, isSplitInstance, splitCon
         }))
         setTimeout(() => res(), (11 - (speed || 1)) * 50)
     })
-    // console.log(animations);
 
     const nodesRef = useRef({})
     const updateNode = ({ index, color }) => {

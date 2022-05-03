@@ -11,6 +11,11 @@ export const resetState = () => ({
     type: 'resetState'
 })
 
+export const setStateValue = (payload) => ({
+    type: 'setStateValue',
+    payload
+})
+
 const sortingGoToBeggining = (payload) => ({ type: 'sortingGoToBeggining', payload })
 const sortingGoBack = (payload) => ({ type: 'sortingGoBack', payload })
 const sortingPlay = (payload) => ({ type: 'sortingPlay', payload })

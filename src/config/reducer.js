@@ -1,8 +1,9 @@
-import { randomArray, randomGraph } from "./utilties"
+import { randomArray, randomGraph, getGrid } from "./utilties"
 
 export const initialState = {
     data: randomArray(15),
     graph: randomGraph(12, 2),
+    grid: getGrid(),
     isOverlayVisible: false,
     isVisualiserSplit: false
 }
@@ -16,6 +17,8 @@ export const reducer = (state, { type, payload }) => {
         case 'resetState': {
             return { ...state, isVisualiserSplit: null }
         }
+        case 'setStateValue':
+            return { ...state, ...payload }
         default:
             return { ...state }
     }
@@ -23,7 +26,6 @@ export const reducer = (state, { type, payload }) => {
 
 
 export const sortingVisualisationReducer = (state, { type, payload }) => {
-    // console.log(type, payload);
     switch (type) {
         case "sortingGoToBeggining":
             return { ...state, isPaused: true, currentStep: 0, targetStep: 0 }
@@ -50,7 +52,6 @@ export const sortingVisualisationReducer = (state, { type, payload }) => {
 }
 
 export const pathFindingVisualisationReducer = (state, { type, payload }) => {
-    // console.log(type, payload);
     switch (type) {
         case "pathFindingGoToBeggining":
             return { ...state, isPaused: true, currentStep: 0, targetStep: 0 }
@@ -77,7 +78,6 @@ export const pathFindingVisualisationReducer = (state, { type, payload }) => {
 }
 
 export const searchingVisualisationReducer = (state, { type, payload }) => {
-    // console.log(type, payload);
     switch (type) {
         case "searchingGoToBeggining":
             return { ...state, isPaused: true, currentStep: 0, targetStep: 0 }
@@ -104,7 +104,6 @@ export const searchingVisualisationReducer = (state, { type, payload }) => {
 }
 
 export const graphVisualisationReducer = (state, { type, payload }) => {
-    // console.log(type, payload);
     switch (type) {
         case "graphGoToBeggining":
             return { ...state, isPaused: true, currentStep: 0, targetStep: 0 }

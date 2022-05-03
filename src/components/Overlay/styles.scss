@@ -20,9 +20,37 @@
         transform: translateX(20vw);
         transition: 0.3s ease-in;
         border-radius: 6px;
+        padding: 0.5vw 0;
+        > div {
+            padding: 0 1vw;
+        }
+        .overlay-header {
+            @include card;
+            padding-bottom: 10px;
+        }
+        h2 {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 26px;
+        }
+        h3 {
+            font-weight: 700;
+        }
 
-        padding: 0.5vw 1vw;
-        
+        .btn-upload {
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border: 1px dashed $color-purple;
+            border-radius: 6px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
         .icon-arrow-down {
             // height: 30px;
             margin-top: 25px;
